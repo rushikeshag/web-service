@@ -5,6 +5,7 @@ import com.lotusstack.webservices.db.UserDaoService;
 import com.lotusstack.webservices.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
@@ -33,9 +34,9 @@ public class WebServiceController {
     }
 
     @GetMapping("/goodMorning")
-    public String sayGodMorning(@RequestHeader(name = "Accept-Language", required = false) Locale locale) {
+    public String sayGodMorning() {
 
-        return messageSource.getMessage("good.morning.msg", null, locale);
+        return messageSource.getMessage("good.morning.msg", null, LocaleContextHolder.getLocale());
     }
 
     @GetMapping("/users/{id}")
