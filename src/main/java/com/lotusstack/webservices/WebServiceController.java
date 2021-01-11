@@ -4,6 +4,7 @@ import com.lotusstack.webservices.db.User;
 import com.lotusstack.webservices.db.UserDaoService;
 import com.lotusstack.webservices.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -22,10 +24,18 @@ public class WebServiceController {
 
     @Autowired
     private UserDaoService userDaoService;
+    @Autowired
+    private MessageSource messageSource;
 
     @GetMapping("/users")
     public ArrayList<User> getAll() {
         return userDaoService.getAll();
+    }
+
+    @GetMapping("/goodMorning")
+    public String sayGodMorning(@RequestHeader(name = "Accept-Language", required = false) Locale locale) {
+
+        return messageSource.getMessage("good.morning.msg", null, locale);
     }
 
     @GetMapping("/users/{id}")
