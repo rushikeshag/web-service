@@ -15,4 +15,35 @@ public class PersonVersionController {
     public PersonV2 personV2() {
         return new PersonV2(new Name("Abhijit", "Gore"));
     }
+
+    //use URL = localhost:8080/person/param?version1
+    @GetMapping(value = "person/param", params = "version1")
+    public PersonV1 paramsV1() {
+        return new PersonV1("Abhijit Gore");
+    }
+
+    @GetMapping(value = "person/param", params = "version2")
+    public PersonV2 paramsV2() {
+        return new PersonV2(new Name("Abhijit", "Gore"));
+    }
+
+    @GetMapping(value = "person/headers", headers = "X-API-VERSION=1")
+    public PersonV1 headersV1() {
+        return new PersonV1("Abhijit Gore");
+    }
+
+    @GetMapping(value = "person/headers", headers = "X-API-VERSION=2")
+    public PersonV2 headersV2() {
+        return new PersonV2(new Name("Abhijit", "Gore"));
+    }
+
+    @GetMapping(value = "person/headers", produces = "application/app-v1+json")
+    public PersonV1 producesV1() {
+        return new PersonV1("Abhijit Gore");
+    }
+
+    @GetMapping(value = "person/headers", produces = "application/app-v2+json")
+    public PersonV2 producesV2() {
+        return new PersonV2(new Name("Abhijit", "Gore"));
+    }
 }
